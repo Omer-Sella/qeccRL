@@ -1,0 +1,82 @@
+\section{Discussion and further work\label{sec:conclusion}}
+We have presented a reinforcement learning framework for designing quantum error correcting codes as a function of decoder architecture, by formulating the problem as a sequential decision making problem.
+The use of Reinforcement Learning tools such as PPO is made applicable by defining a reward function based on the area under the physical-to-logical-error-rate curve.
+The learned policy can be used to edit, and potentially optimise existing codes. 
+
+\subsection{Immediate further work}
+By immediate we mean that an improvement of the existing codes could provide an answer.
+\paragraph{Decoder budget} Follow up work could limit the episode on decoding budget similar to~\cite{pardo2018time}.
+In our setting the natural limit is a budget of decoder invocations, since a Monte-Carlo simulation using a BP+OSD decoder is the main cost of a rollout.
+\paragraph{Reset archive} In our work, each episode \bfit{reset} uses random polynomials (with up to 3 non zero coefficients), since 
+a \bfit{reset distribution} that better covers the state space is known to positively impact policy quality~\cite{kakade2002approximately}. 
+An immediate follow up is to use an archive of specific codes, 
+which are to be remembered and explored repeatedly~\cite{ecoffet2021first}. This would entail taking a subset of the existing dataset (say of the worst codes) and retraining with reset codes sampled from this subset.
+\paragraph{Decoder architecture, Error model}We did not consider OSD-w type postprocessing, i.e., allowing the decoder to scan for error patterns up to w coordinates away, nor did we investigate training with one decoder and evaluating with another. Another dimension which we consider immediate follow up work, is steering away from the symmetric probability in the depolarizing channel (the reader may recall that in section~\ref{sec:background} we noted that BB codes provide symmetric X and Z generators).
+
+\subsection{Wider application}
+The most natural extension of this work would be to frame other code constructions as a sequential decision making problem, i.e., an environment for a PPO agent to interact with.
+The evaluation in this work uses a simplistic code-capacity noise model (independent depolarising noise on each physical qubit). 
+A natural extension is circuit-level noise, where ancilla preparation, syndrome measurement, and gate errors are modelled explicitly~\cite{fowler2012surface}, and an RL agent could be rewarded for performance under a circuit-level simulator. 
+We are also interested in expanding this work to lattice surgery~\cite{litinski2019game}, and optimise codes as a function of the complexity of lattice surgery on them.
+At the time of submission, an interesting potential application came up following~\cite{manjunath2026universal}, in which context, the agent might have to learn automorphism groups to provide logical gates.\\
+\noindent There is a very natural extension of this work to truly co-design codes and decoders: 
+In~\cite{muller2025improved} the authors propose a parametrized decoder, made of several ``legs'' of Belief Propagation. By treating these parameters as actionable, just as we address the code parameters, one could optimize both decoder and code at the same time.
+
+
+\noindent Finally, we wish to offer some self-criticism about the (non) necessity of this work. 
+At the time of writing there are \(\mathcal{O}(1,000)\) distinct entities engaged in building quantum hardware for useful quantum computation. 
+Assume that each entity will develop around \(\mathcal{O}(100)\) quantum devices, each with its own decoder architecture, 
+and that neither will share these codes with the others. 
+Optimistically, that's still only around \(\mathcal{O}(100,000)\) potential applications of this work as it stands.
+Where we see this work going, and where we believe the use case could truly benefit from these methods, is when an arbitrary quantum algorithm is to be compiled to, 
+(potentially) a Linear Combination of quantum Channels (LCC), that run on one of several hardware backends 
+(which, at the time of writing, seem to only grow), 
+each running their own set of potential QECC and instruction sets, 
+and where each instruction (apply a gate, measure a qubit, extract syndromes, correct for errors) 
+is attached to some latency cost and error rate which cascades. 
+Once compiled, the user applies a \bfit{sequence of changes}. The question we ask in this case is:\\
+\bfit{Can a generative policy be trained to optimise the compiled algorithm, in lockstep with changes to the algorithm ?}
+
+
+\subsection{Reproducibility}
+\noindent The dataset of BB codes used in this work is available to clone on \url{https://github.com/Omer-Sella/bbCodesDataset} or Zenodo~\cite{sella2026bbcodesdataset}. The repository includes a minimal script to reproduce the figures relating to statistical properties like the distribution of the number of logical qubits.\\
+\noindent The model weights (checkpoints) for the encoder of Section~\ref{sec:encoderEvaluation} can be found at \url{https://github.com/Omer-Sella/bbCodeSurrogates} as well as 
+Zenodo~\cite{sella2026bbcodesurrogates}, 
+and include the script to produce Figures~\ref{fig:point_mae}. To evaluate the (\(300\)) models over the dataset, we advise cloning both repositories, adding an environment variable that includes the path to the dataset, and running the evaluation module in the encoder repository.
+%The code used to train these models can be found here []. 
+%A docker file that would bring up the environment used to traing the encoder can be found here [], however, be aware it clones the entire BB codes repository (~6GB). The environment (bb-gym), along with the code used for training in this paper can be cloned here []. The implementation of bb-gym roughly follows ???, while the code to train PPO is almost a drop-in-place reuse of torchrl tools ???.
+\paragraph{Experimental configuration}
+All reported experiments use the single-coefficient action space
+(\texttt{--env-bit-flipping True}), episodes that reset to a random code with
+at most three non-zero coefficients per polynomial
+(\texttt{--env-reset-type random3}) and truncate after \(T=30\) steps, the
+five-point \texttt{geometric5} grid, \(50\) Monte-Carlo samples and \(50\)
+belief-propagation iterations per grid point, and the width-normalised reward
+of Definition~\ref{def:reward} (\texttt{--env-reward-engineering True}).
+Evaluations use deterministic action selection with a rollout length of \(30-60\)
+steps, every tenth collector batch. 
+
+\begin{table*}[t]
+  \centering
+  \caption{Per-size experimental configuration. \(A\) and \(B\) are \(lm \times lm\)
+  binary circulant sums, so a code has \(n = 2lm\) physical qubits and the flattened
+  code observation \(A \Vert B\) has \(2(lm)^2\) entries. The parameter \(k_{\min}\) is set
+  to the logical dimension of the published reference code at that
+  size~\cite{bravyi2024high}. Reference rewards are
+  computed by the reward of Definition~\ref{def:reward} on the \texttt{geometric5}
+  error range, with width normalisation.}
+  \label{tab:configuration}
+  \begin{tabular}{rrrrlrr}
+    \toprule
+    \(l\) & \(m\) & \(n = 2lm\) & \(A, B\) & Reference code & \(k_{\min}\) & Reference reward \\
+    \midrule
+     6 &  6 &  72 & \(36\times36\)   & \([[72,12,6]]\)       & 12 & 0.346 \\
+    15 &  3 &  90 & \(45\times45\)   & \([[90,8,10]]\)       &  8 & 0.506 \\
+     9 &  6 & 108 & \(54\times54\)   & \([[108,8,10]]\)      &  8 & 0.546 \\
+    12 &  6 & 144 & \(72\times72\)   & \([[144,12,12]]\)     & 12 & 0.554 \\
+     5 & 15 & 150 & \(75\times75\)   & ---                   & ---& --- \\
+     3 & 27 & 162 & \(81\times81\)   & ---                   & ---& --- \\
+    21 & 18 & 756 & \(378\times378\) & \([[756,16,\leq34]]\) & 16 & 0.600 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}

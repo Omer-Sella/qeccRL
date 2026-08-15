@@ -1,0 +1,67 @@
+\section{Evaluation and results}\label{sec:evaluation}
+We evaluate the policy every \(10\) collector batches in a deterministic modes, by taking the mode of the the policy distribution. 
+%Evaluation may have a different rollout length, but in any case (\(\geq \max(l,m)\)). 
+The evaluation starts at random polynomials with up to \(3\) non zero elements (similarly to training). 
+Every step of every evaluation is logged, giving, per evaluation, the full trajectory of rewards and of the constructed codes. 
+The following \emph{metrics} are observed:
+\paragraph{Best-performing code} We are interested, of course, in maximising the reward under a given decoder. For known, published, code parameters, we can calculate this number and measure against it.
+\paragraph{80\% of the evaluation} This is of interest because it helps understand whether the agent is actually improving, in which case the 80\% band will tighten in width, and tighten the gap with the maximum. A persistent gap between the band and the maximum means the best
+codes visited are fewer than $10\%$ of the time, implying that discovered good codes are not integrated into the policy. 
+A persistently wide 80\% band is a proxy metric to 
+\textit{how many steps did it take the agent to reach the best code ?} 
+an all knowing agent would plot a reward-greedy course towards the best code (which is at most \(max{l,m}\) actions far, but potentially goes through some bad-paying codes). 
+\paragraph{Average reward} The average reward can indicate whether or not the agent has learned that codes with insufficient number of logical qubits obtain a negative reward.
+
+\noindent Figure~\ref{fig:reward-panel} summarises these evaluations, carried over one training run. We use the codes reported in~\cite{bravyi2024high} as 
+baselines. Where a baseline code exists, we plot the reward this code would achieve as a reference (horizontal, gray, dashed). The shaded region below zero reward marks where the reward was negative due to a code with less than the minimum number of logical qubits required, 
+and the exact number of logical qubits can be recovered from the negative reward (annotated next to the reward ticks). A dashed vertical line indicates when the encoder weights were unfrozen.
+\noindent Within each evaluation we plot the \bfit{best} (maximum) reward obtained (blue), the \bfit{average} (orange), 
+and the 10th to 90th percentile of the rewards obtained in that evaluation in shaded orange\footnote{Which will always be around the average and below the maximum.}, which indicates where 80\% of that evaluation was spent.
+\paragraph{Anatomy of a single run}
+Early in training the 80\% band is high-spread and sits largely inside the penalty region (shaded gray) and the agent spends most of its steps climbing from the random reset 
+code towards codes with more logical qubits. 
+As training progresses, a successful run shows the band shifting away from the penalty region. 
+As training matures, we see the best-in-evaluation line (blue) crossing the reference more consistently. 
+We also see that the 80\% band contracts later in training. A deep dip accompanied by a high-spread band is a
+slow recovery, suggesting the evaluation started from an unfavourable and the agent was slow to recover. 
+A dip whose band is tightly centered around $-1$ suggests a trapped evaluation, i.e., the deterministic policy cannot climb out of the penalty region.
+Recall that evaluations are deterministic. A trapped evaluation reflects a property
+of the greedy policy from that particular initial code. The training time
+policy, which samples with an entropy bonus, wouldn't necessarily fail from the same state, but such an event shows a weakness of the deterministic policy. 
+These observations can be seen in Figure~\ref{fig:reward-panel}.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{art/rl-individual-runs/postProcessing.pdf}
+    \caption{Evaluation of a single PPO training session.}
+    \label{fig:reward-panel}
+\end{figure}
+
+
+\subsection{Evaluation of the network architecture\label{sec:validation}}
+Recall that our network architecture in Section~\ref{sec:policy} proposed three branches, with the main ones being the MLP (which number of parameters depend on the size of the code) 
+and the encoder (which is transferable across code sizes). Furthermore, in Section~\ref{sec:critic} we proposed using a pretrained encoder, which, depending on what the agent struggles on, could warm-start the learning.
+As Table~\ref{tab:kCurveAlignment} suggests, it is hard to pick an encoder that excels both tasks.
+The selection will therefore had to be done once we learn whether the agent struggles (at early training) with getting to codes with sufficient number of logical qubits, 
+or whether it struggles to find good codes which meet the threshold. We can, however, review some training strategies, assuming we find an encoder that compensates for early start stagnation (yet to be demonstrated).
+Looking at Figure~\ref{fig:reward-panel}, and other individual runs similar to it, suggests that it is learning to produce codes with a sufficient number of qubits that the agent struggles with at first.
+%We test this, as well as the benefit of each branch of the network using the following sweep:
+Under identical PPO hyperparameters and seeds, we compare the learning curves across the following configurations:
+\paragraph{Warm-started} the architecture of Figure~\ref{fig:hybrid}, encoder
+        warm-started from a well performing checkpoint. Training starts with two instances of the selected encoder, one for the actor and one for the
+critic, with the encoder weights frozen, meaning that they do not change. 
+They can then be unfrozen after \(N\) collector batches and their learning rate can be adjusted, 
+so a freeze-then-anneal schedule guarding against the primacy bias~\cite{nikishin2022primacy}. 
+Recall that the other branches start from random weights, 
+and, if we do not freeze the encoder weights, the gradients they produce early in training would overwrite a trained representation that. 
+Once the (two encoder) instances unfreeze, they may diverge under their own
+gradients, since nothing ties them together after that point.
+\paragraph{Random encoder weights} the identical architecture with a randomly initialised
+        encoder. Weights are unfrozen from initialisation.
+%\paragraph{MLP only} the flat-observation baseline with no encoder branch.
+%\paragraph{Encoder only}the hybrid with the MLP branch removed, i.e., the fusion layer reads
+  %      the encoder latent and the \(k\)-features alone. Since the flattened \(H_X|H_Z\) block is fully
+  %      determined by the polynomials, this tests whether the redundant expanded-matrix view
+  %      justifies its parameter cost (the MLP branch holds most of the network's parameters, and its
+  %      input layer grows with \((l,m)\) and is not transferable.
+
+

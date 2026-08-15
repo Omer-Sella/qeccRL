@@ -1,8 +1,345 @@
-\begin{thebibliography}{0}
+\begin{thebibliography}{44}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Panteleev and Kalachev(2022)]{panteleev2022asymptotically}
+Pavel Panteleev and Gleb Kalachev.
+\newblock Asymptotically good quantum and locally testable classical ldpc
+  codes.
+\newblock In \emph{Proceedings of the 54th Annual ACM SIGACT Symposium on
+  Theory of Computing (STOC)}, pages 375--388, 2022.
+\newblock \doi{10.1145/3519935.3520017}.
+\newblock URL \url{https://doi.org/10.1145/3519935.3520017}.
+
+\bibitem[Bravyi et~al.(2024)Bravyi, Cross, Gambetta, Maslov, Rall, and
+  Yoder]{bravyi2024high}
+Sergey Bravyi, Andrew~W Cross, Jay~M Gambetta, Dmitri Maslov, Patrick Rall, and
+  Theodore~J Yoder.
+\newblock High-threshold and low-overhead fault-tolerant quantum memory.
+\newblock \emph{Nature}, 627\penalty0 (8005):\penalty0 778--782, 2024.
+\newblock \doi{10.1038/s41586-024-07107-7}.
+\newblock URL \url{https://doi.org/10.1038/s41586-024-07107-7}.
+
+\bibitem[Pearl(1988)]{pearl1988probabilistic}
+Judea Pearl.
+\newblock \emph{Probabilistic Reasoning in Intelligent Systems: Networks of
+  Plausible Inference}.
+\newblock Morgan Kaufmann, 1988.
+
+\bibitem[Sella et~al.(2018)Sella, Moore, and Zilberman]{sella2018fec}
+Omer~S Sella, Andrew~W Moore, and Noa Zilberman.
+\newblock Fec killed the cut-through switch.
+\newblock In \emph{Proceedings of the 2018 Workshop on Networking for Emerging
+  Applications and Technologies}, pages 15--20, 2018.
+\newblock \doi{10.1145/3229574.3229577}.
+
+\bibitem[Tanner(1981)]{tanner1981recursive}
+R~Michael Tanner.
+\newblock A recursive approach to low complexity codes.
+\newblock \emph{IEEE Transactions on Information Theory}, 27\penalty0
+  (5):\penalty0 533--547, 1981.
+\newblock \doi{10.1109/tit.1981.1056404}.
+\newblock URL \url{https://doi.org/10.1109/TIT.1981.1056404}.
+
+\bibitem[Fossorier and Lin(1995)]{fossorier1995soft}
+Marc~PC Fossorier and Shu Lin.
+\newblock Soft-decision decoding of linear block codes based on ordered
+  statistics.
+\newblock \emph{IEEE Transactions on Information Theory}, 41\penalty0
+  (5):\penalty0 1379--1396, 1995.
+\newblock \doi{10.1109/isit.1994.394624}.
+\newblock URL \url{https://doi.org/10.1109/18.412683}.
+
+\bibitem[Gottesman(2026)]{gottesman2026surviving}
+Daniel Gottesman.
+\newblock Surviving as a quantum computer in a classical world.
+\newblock \emph{Textbook manuscript preprint}, 2026.
+\newblock URL \url{https://www.cs.umd.edu/~dgottesm/QECCbook-2026.pdf}.
+
+\bibitem[Calderbank and Shor(1996)]{calderbank1996good}
+A~Robert Calderbank and Peter~W Shor.
+\newblock Good quantum error-correcting codes exist.
+\newblock \emph{Physical Review A}, 54\penalty0 (2):\penalty0 1098, 1996.
+\newblock \doi{10.1103/physreva.54.1098}.
+\newblock URL \url{https://doi.org/10.1103/PhysRevA.54.1098}.
+
+\bibitem[Steane(1996)]{steane1996error}
+Andrew~M Steane.
+\newblock Error correcting codes in quantum theory.
+\newblock \emph{Physical Review Letters}, 77\penalty0 (5):\penalty0 793, 1996.
+\newblock \doi{10.1103/PhysRevLett.77.793}.
+\newblock URL \url{https://doi.org/10.1103/PhysRevLett.77.793}.
+
+\bibitem[MacKay et~al.(2004)MacKay, Mitchison, and McFadden]{mackay2004sparse}
+David J.~C. MacKay, Graeme Mitchison, and Paul~L. McFadden.
+\newblock Sparse-graph codes for quantum error correction.
+\newblock \emph{IEEE Transactions on Information Theory}, 50\penalty0
+  (10):\penalty0 2315--2330, 2004.
+\newblock \doi{10.1109/TIT.2004.834737}.
+
+\bibitem[Voss et~al.(2024)Voss, Xian, Haug, and Bharti]{voss2024multivariate}
+Lukas Voss, Sim~Jian Xian, Tobias Haug, and Kishor Bharti.
+\newblock Multivariate bicycle codes, 2024.
+
+\bibitem[Voss et~al.(2025)Voss, Xian, Haug, and Bharti]{voss2025multivariate}
+Lukas Voss, Sim~Jian Xian, Tobias Haug, and Kishor Bharti.
+\newblock Multivariate bicycle codes.
+\newblock \emph{Physical Review A}, 111\penalty0 (6):\penalty0 L060401, 2025.
+\newblock \doi{10.1103/ll5p-z88p}.
+
+\bibitem[Panteleev and Kalachev(2021)]{panteleev2021degenerate}
+Pavel Panteleev and Gleb Kalachev.
+\newblock Degenerate quantum ldpc codes with good finite length performance.
+\newblock \emph{Quantum}, 5:\penalty0 585, 2021.
+\newblock \doi{10.22331/q-2021-11-22-585}.
+\newblock URL \url{https://doi.org/10.22331/q-2021-11-22-585}.
+
+\bibitem[Wang and Mueller(2024)]{wang2024coprime}
+Ming Wang and Frank Mueller.
+\newblock Coprime bivariate bicycle codes.
+\newblock \emph{arXiv preprint arXiv:2408.10001}, 2024.
+
+\bibitem[Eberhardt and Steffan(2024)]{eberhardt2024logical}
+Jens~Niklas Eberhardt and Vincent Steffan.
+\newblock Logical operators and fold-transversal gates of bivariate bicycle
+  codes.
+\newblock \emph{IEEE Transactions on Information Theory}, 71\penalty0
+  (2):\penalty0 1140--1152, 2024.
+\newblock \doi{10.48550/arXiv.2407.03973}.
+
+\bibitem[Kovalev and Pryadko(2013)]{kovalev2013quantum}
+Alexey~A. Kovalev and Leonid~P. Pryadko.
+\newblock Quantum kronecker sum-product low-density parity-check codes with
+  finite rate.
+\newblock \emph{Physical Review A}, 88\penalty0 (1):\penalty0 012311, 2013.
+\newblock \doi{10.1103/PhysRevA.88.012311}.
+
+\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and
+  Klimov]{schulman2017proximal}
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
+\newblock Proximal policy optimization algorithms.
+\newblock \emph{arXiv preprint arXiv:1707.06347}, 2017.
+\newblock \doi{10.48550/arXiv.1707.06347}.
+\newblock URL \url{https://doi.org/10.48550/arXiv.1707.06347}.
+
+\bibitem[Bou et~al.(2024)Bou, Bettini, Dittert, Kumar, Sodhani, Yang, {De
+  Fabritiis}, and Moens]{bou2024torchrl}
+Albert Bou, Matteo Bettini, Sebastian Dittert, Vikash Kumar, Shagun Sodhani,
+  Xiaomeng Yang, Gianni {De Fabritiis}, and Vincent Moens.
+\newblock {TorchRL}: A data-driven decision-making library for {PyTorch}.
+\newblock In \emph{International Conference on Learning Representations
+  ({ICLR})}, 2024.
+\newblock \doi{10.48550/arXiv.2306.00577}.
+
+\bibitem[Sella(2026{\natexlab{a}})]{sella2026bbcodesdataset}
+Omer~S. Sella.
+\newblock {bbCodesDataset}: decoder-evaluation data for bivariate bicycle
+  codes, 2026{\natexlab{a}}.
+\newblock URL \url{https://github.com/Omer-Sella/bbCodesDataset}.
+\newblock Dataset and figure-reproduction scripts.
+
+\bibitem[Towers et~al.(2024)Towers, Kwiatkowski, Terry, Balis, De~Cola, Deleu,
+  Goul{\~a}o, Kallinteris, Krimmel, KG, et~al.]{towers2024gymnasium}
+Mark Towers, Ariel Kwiatkowski, Jordan Terry, John~U. Balis, Gianluca De~Cola,
+  Tristan Deleu, Manuel Goul{\~a}o, Andreas Kallinteris, Markus Krimmel, Arjun
+  KG, et~al.
+\newblock Gymnasium: A standard interface for reinforcement learning
+  environments.
+\newblock \emph{arXiv preprint arXiv:2407.17032}, 2024.
+\newblock \doi{10.48550/arXiv.2407.17032}.
+
+\bibitem[Sutton and Barto(2018)]{sutton2018reinforcement}
+Richard~S. Sutton and Andrew~G. Barto.
+\newblock \emph{Reinforcement Learning: An Introduction}.
+\newblock MIT Press, 2 edition, 2018.
+
+\bibitem[Roffe et~al.(2020)Roffe, White, Burton, and
+  Campbell]{roffe_decoding_2020}
+Joschka Roffe, David~R. White, Simon Burton, and Earl Campbell.
+\newblock Decoding across the quantum low-density parity-check code landscape.
+\newblock \emph{Physical Review Research}, 2\penalty0 (4), Dec 2020.
+\newblock ISSN 2643-1564.
+\newblock \doi{10.1103/physrevresearch.2.043423}.
+\newblock URL \url{http://dx.doi.org/10.1103/PhysRevResearch.2.043423}.
+
+\bibitem[Sella and Heinis(2025)]{sella2025mapping}
+Omer~Shimon Sella and Thomas Heinis.
+\newblock A mapping of the min-sum decoder to reduction operations, and its
+  implementation using cuda kernels.
+\newblock \emph{arXiv preprint arXiv:2507.10424}, 2025.
+\newblock \doi{10.48550/arXiv.2507.10424}.
+
+\bibitem[Wang and Mueller(2026)]{wang2026coprime}
+Ming Wang and Frank Mueller.
+\newblock Coprime bivariate bicycle codes and their layouts on cold atoms.
+\newblock \emph{Quantum}, 10:\penalty0 2009, 2026.
+\newblock \doi{10.22331/q-2026-02-23-2009}.
+
+\bibitem[Evra et~al.(2022)Evra, Kaufman, and Z{\'e}mor]{evra2022decodable}
+Shai Evra, Tali Kaufman, and Gilles Z{\'e}mor.
+\newblock Decodable quantum ldpc codes beyond the $\sqrt{n}$ distance barrier
+  using high-dimensional expanders.
+\newblock \emph{SIAM Journal on Computing}, 53\penalty0 (6):\penalty0
+  FOCS20--276, 2022.
+\newblock \doi{10.1137/20M1383689}.
+\newblock URL \url{https://doi.org/10.1137/20M1383689}.
+
+\bibitem[Manjunath et~al.(2026)Manjunath, Mattei, Tiwari, and
+  Ellison]{manjunath2026universal}
+Naren Manjunath, Vieri Mattei, Apoorv Tiwari, and Tyler~D Ellison.
+\newblock Universal quantum computation with group surface codes.
+\newblock \emph{arXiv preprint arXiv:2603.05502}, 2026.
+\newblock \doi{10.48550/arXiv.2603.05502}.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2603.05502}.
+
+\bibitem[Sweke et~al.(2020)Sweke, Kesselring, van Nieuwenburg, and
+  Eisert]{sweke2020reinforcement}
+Ryan Sweke, Markus~S Kesselring, Evert~PL van Nieuwenburg, and Jens Eisert.
+\newblock Reinforcement learning decoders for fault-tolerant quantum
+  computation.
+\newblock \emph{Machine Learning: Science and Technology}, 2\penalty0
+  (2):\penalty0 025005, 2020.
+\newblock \doi{10.1088/2632-2153/abc609}.
+\newblock URL \url{https://doi.org/10.1088/2632-2153/abc609}.
+
+\bibitem[Blue et~al.(2026)Blue, Avlani, He, Ziyin, and Chuang]{blue2026machine}
+John Blue, Harshil Avlani, Zhiyang He, Liu Ziyin, and Isaac~L Chuang.
+\newblock Machine learning decoding of circuit-level noise for bivariate
+  bicycle codes.
+\newblock \emph{Quantum}, 10:\penalty0 2149, 2026.
+\newblock \doi{10.22331/q-2026-06-30-2149}.
+
+\bibitem[Nautrup et~al.(2019)Nautrup, Delfosse, Dunjko, Briegel, and
+  Friis]{nautrup2019optimizing}
+Hendrik~Poulsen Nautrup, Nicolas Delfosse, Vedran Dunjko, Hans~J Briegel, and
+  Nicolai Friis.
+\newblock Optimizing quantum error correction codes with reinforcement
+  learning.
+\newblock \emph{Quantum}, 3:\penalty0 215, 2019.
+\newblock \doi{10.22331/q-2019-12-16-215}.
+\newblock URL \url{https://doi.org/10.22331/q-2019-12-16-215}.
+
+\bibitem[Mauron et~al.(2024)Mauron, Farrelly, and
+  Stace]{mauron2024optimization}
+Caroline Mauron, Terry Farrelly, and Thomas~M Stace.
+\newblock Optimization of tensor network codes with reinforcement learning.
+\newblock \emph{New Journal of Physics}, 26:\penalty0 023024, 2024.
+\newblock \doi{10.1088/1367-2630/ad23a6}.
+\newblock URL \url{https://doi.org/10.1088/1367-2630/ad23a6}.
+
+\bibitem[He and Liu(2025)]{he2025discovering}
+Austin~Yubo He and Zi-Wen Liu.
+\newblock Discovering highly efficient low-weight quantum error-correcting
+  codes with reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2502.14372}, 2025.
+\newblock \doi{10.48550/arXiv.2502.14372}.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2502.14372}.
+
+\bibitem[Cruz-Benito et~al.(2026)Cruz-Benito, Cross, Kremer, and
+  Faro]{cruzbenito2026evolutionary}
+Juan Cruz-Benito, Andrew~W Cross, David Kremer, and Ismael Faro.
+\newblock Evolutionary discovery of bivariate bicycle codes with {LLM}-guided
+  search.
+\newblock \emph{arXiv preprint arXiv:2606.02418}, 2026.
+\newblock \doi{10.48550/arXiv.2606.02418}.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2606.02418}.
+
+\bibitem[Chengyu et~al.(2026)Chengyu, Meister, Carty, Lin, and
+  Bondesan]{cheng2026bayesian}
+Yihua Chengyu, Richard Meister, Conor Carty, Sheng-Ku Lin, and Roberto
+  Bondesan.
+\newblock Bayesian optimization for quantum error-correcting code discovery.
+\newblock \emph{arXiv preprint arXiv:2601.18562}, 2026.
+\newblock \doi{10.48550/arXiv.2601.18562}.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2601.18562}.
+
+\bibitem[Su et~al.()Su, Cao, Hu, Yanay, Tahan, and Swingle]{su2305discovery}
+Vincent~Paul Su, C~Cao, Hong-Ye Hu, Yariv Yanay, Charles Tahan, and Brian
+  Swingle.
+\newblock Discovery of optimal quantum error correcting codes via reinforcement
+  learning (2023).
+\newblock \emph{arXiv preprint arXiv:2305.06378}.
+\newblock \doi{10.48550/arXiv.2305.06378}.
+
+\bibitem[Cao and Lackey(2022)]{cao2022quantum}
+ChunJun Cao and Brad Lackey.
+\newblock Quantum lego: Building quantum error correction codes from tensor
+  networks.
+\newblock \emph{PRX Quantum}, 3\penalty0 (2):\penalty0 020332, 2022.
+\newblock \doi{10.1103/PRXQuantum.3.020332}.
+
+\bibitem[Sella(2024)]{sella2024coding}
+Omer Sella.
+\newblock \emph{Coding for emerging archival storage media}.
+\newblock PhD thesis, University of Cambridge, 2024.
+
+\bibitem[Nikishin et~al.(2022)Nikishin, Schwarzer, D'Oro, Bacon, and
+  Courville]{nikishin2022primacy}
+Evgenii Nikishin, Max Schwarzer, Pierluca D'Oro, Pierre-Luc Bacon, and Aaron
+  Courville.
+\newblock The primacy bias in deep reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, pages
+  16828--16847. PMLR, 2022.
+\newblock \doi{10.48550/arXiv.2205.07802}.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2205.07802}.
+
+\bibitem[Pardo et~al.(2018)Pardo, Tavakoli, Levdik, and
+  Kormushev]{pardo2018time}
+Fabio Pardo, Arash Tavakoli, Vitaly Levdik, and Petar Kormushev.
+\newblock Time limits in reinforcement learning.
+\newblock In \emph{Proceedings of the 35th International Conference on Machine
+  Learning (ICML)}, volume~80 of \emph{PMLR}, pages 4045--4054, 2018.
+\newblock \doi{10.48550/arXiv.1712.00378}.
+
+\bibitem[Kakade and Langford(2002)]{kakade2002approximately}
+Sham Kakade and John Langford.
+\newblock Approximately optimal approximate reinforcement learning.
+\newblock In \emph{Proceedings of the 19th International Conference on Machine
+  Learning (ICML)}, pages 267--274, 2002.
+
+\bibitem[Ecoffet et~al.(2021)Ecoffet, Huizinga, Lehman, Stanley, and
+  Clune]{ecoffet2021first}
+Adrien Ecoffet, Joost Huizinga, Joel Lehman, Kenneth~O. Stanley, and Jeff
+  Clune.
+\newblock First return, then explore.
+\newblock \emph{Nature}, 590\penalty0 (7847):\penalty0 580--586, 2021.
+\newblock \doi{10.1038/s41586-020-03157-9}.
+
+\bibitem[Fowler et~al.(2012)Fowler, Mariantoni, Martinis, and
+  Cleland]{fowler2012surface}
+Austin~G Fowler, Matteo Mariantoni, John~M Martinis, and Andrew~N Cleland.
+\newblock Surface codes: Towards practical large-scale quantum computation.
+\newblock \emph{Physical Review A}, 86\penalty0 (3):\penalty0 032324, 2012.
+\newblock \doi{10.1103/physreva.86.032324}.
+\newblock URL \url{https://doi.org/10.1103/PhysRevA.86.032324}.
+
+\bibitem[Litinski(2019)]{litinski2019game}
+Daniel Litinski.
+\newblock A game of surface codes: Large-scale quantum computing with lattice
+  surgery.
+\newblock \emph{Quantum}, 3:\penalty0 128, 2019.
+\newblock \doi{10.22331/q-2019-03-05-128}.
+\newblock URL \url{https://doi.org/10.22331/q-2019-03-05-128}.
+
+\bibitem[M{\"u}ller et~al.(2025)M{\"u}ller, Alexander, Beverland, B{\"u}hler,
+  Johnson, Maurer, and Vandeth]{muller2025improved}
+Tristan M{\"u}ller, Thomas Alexander, Michael~E Beverland, Markus B{\"u}hler,
+  Blake~R Johnson, Thilo Maurer, and Drew Vandeth.
+\newblock Improved belief propagation is sufficient for real-time decoding of
+  quantum memory.
+\newblock \emph{arXiv preprint arXiv:2506.01779}, 2025.
+\newblock \doi{10.48550/arXiv.2506.01779}.
+\newblock URL \url{https://arxiv.org/pdf/2506.01779}.
+
+\bibitem[Sella(2026{\natexlab{b}})]{sella2026bbcodesurrogates}
+Omer~S. Sella.
+\newblock {bbCodeSurrogates}: pretrained encoders for bivariate bicycle codes,
+  2026{\natexlab{b}}.
+\newblock URL \url{https://github.com/Omer-Sella/bbCodeSurrogates}.
+\newblock 300 encoder checkpoints (6 recipes $\times$ 5 harmonics $\times$ 10
+  seeds) and the transfer-evaluation census.
 
 \end{thebibliography}

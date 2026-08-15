@@ -1,0 +1,37 @@
+\section{Related Work}\label{sec:related-work}
+At the time of writing, the field of quantum error correction 
+codes is experiencing a montage of \(70\) years worth of classical information theory, 
+error correction codes and machine learning, making it hard to stay up to date.
+In writing this section we aimed to give the reader a grounding in related QECC,
+and specifically machine learning for ECC and QECC. 
+Two resources were instrumental in laying the ground work in QECC for this work. 
+The first is by Pantellev and Kalachev~\cite{panteleev2021degenerate}, 
+which present BP+OSD decoding used here, as well as multiple code constructions, and methodology notes.
+The second is Gottesman's book-in-writing~\cite{gottesman2026surviving}, 
+which serves as a one-stop-shop for everything QECC related, 
+and also makes a brilliant read\footnote{With pearls of wisdom such as ``...lattice surgery is an elective procedure...''}. 
+The decoder implemented in this work is the one reported in~\cite{roffe_decoding_2020}, 
+which is a CPU bound implementation. 
+For the Belief Propagation step, specifically Min-Sum decoding, 
+we considered using~\cite{sella2025mapping}, but have not yet paired it with the 
+OSD post processing stage, which is needed to avoid CPU-GPU contention. 
+For the BB family specifically, we note that search algorithms were reported by~\cite{wang2026coprime, wang2024coprime}.
+\noindent Parametrised constructions of quantum Low Density Parity Check (qLDPC) Error Correcting Codes (ECC) 
+draw from several mathematical constructs like polynomials~\cite{panteleev2021degenerate}
+and graphs~\cite{evra2022decodable, manjunath2026universal}, 
+but ultimately require an assignment of these parameters for practical use, 
+and~\cite{panteleev2021degenerate} raises the question of finding good parameters. 
+
+\noindent Reinforcement learning has been applied to the actual decoding as shown in~\cite{sweke2020reinforcement, blue2026machine}, as well as
+to modify surface-code construction in~\cite{nautrup2019optimizing}, 
+optimizing tensor-network codes as reported in~\cite{mauron2024optimization}, 
+and reducing stabiliser weights of existing qLDPC codes~\cite{he2025discovering}. 
+These works reward primarily structural properties of code parameters. 
+In contrast, our main focus is the measured performance of the code under a fixed decoder.
+Machine learning alternatives to RL have appeared recently as well, one workflow that uses LLM was introduced in~\cite{cruzbenito2026evolutionary}, and, closer to our \emph{encoder} approach, 
+a Bayesian-optimisation framework that trains a model that predicts logical error rates without decoder simulation, 
+and uses it to discover competitive \([[144,36]]\) and \([[144,16]]\) codes~\cite{cheng2026bayesian}. 
+In our work this type of model is deployed to warm-start an RL agent, which trains a generative policy. 
+Conceptually, the closest work to ours is~\cite{su2305discovery}, which sets to discover QECCs with \(k=1\) logical qubits using an analytic proxy physical-to-logical error rate. 
+The work in~\cite{su2305discovery} applies RL methods to Quantum Lego~\cite{cao2022quantum}, a way to build QECCs from tensor networks.
+Finally, this work is continuation of our previous work on co-designing (classical) LDPC codes and decoders~\cite{sella2024coding}. 

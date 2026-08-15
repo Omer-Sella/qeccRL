@@ -10,8 +10,8 @@
 
 
 @article{evra2022decodable,
-  doi = {10.1109/focs46700.2020.00029},
-  title={Decodable quantum ldpc codes beyond the n distance barrier using high-dimensional expanders},
+  doi = {10.1137/20M1383689},
+  title={Decodable quantum ldpc codes beyond the $\sqrt{n}$ distance barrier using high-dimensional expanders},
   author={Evra, Shai and Kaufman, Tali and Z{\'e}mor, Gilles},
   journal={SIAM Journal on Computing},
   volume={53},
@@ -64,7 +64,7 @@
   doi = {10.1103/physreva.86.032324},
   title={Surface codes: Towards practical large-scale quantum computation},
   author={Fowler, Austin G and Mariantoni, Matteo and Martinis, John M and Cleland, Andrew N},
-  journal={Physical Review A—Atomic, Molecular, and Optical Physics},
+  journal={Physical Review A},
   volume={86},
   number={3},
   pages={032324},
@@ -96,7 +96,7 @@
 }
 
 @article{steane1996error,
-  doi = {10.1017/9781009283403.017},
+  doi = {10.1103/PhysRevLett.77.793},
   title={Error correcting codes in quantum theory},
   author={Steane, Andrew M},
   journal={Physical Review Letters},
@@ -126,7 +126,6 @@
 }
 
 @book{pearl1988probabilistic,
-  doi = {10.1016/0004-3702(91)90084-w},
   title={Probabilistic Reasoning in Intelligent Systems: Networks of Plausible Inference},
   author={Pearl, Judea},
   year={1988},
@@ -252,7 +251,8 @@
 @phdthesis{sella2024coding,
   title={Coding for emerging archival storage media},
   author={Sella, Omer},
-  year={2024}
+  year={2024},
+  school={University of Cambridge}
 }
 
 @article{gottesman2026surviving,
@@ -446,7 +446,7 @@
 }
 
 @inproceedings{sella2018fec,
-  doi={doi.org/10.1145/3229574.3229577},
+  doi={10.1145/3229574.3229577},
   title={FEC killed the cut-through switch},
   author={Sella, Omer S and Moore, Andrew W and Zilberman, Noa},
   booktitle={Proceedings of the 2018 Workshop on Networking for Emerging Applications and Technologies},
@@ -463,7 +463,7 @@
   pages={1140--1152},
   year={2024},
   publisher={IEEE},
-  DOI={https://doi.org/10.48550/arXiv.2407.03973},
+  DOI={10.48550/arXiv.2407.03973},
 }
 
 @InProceedings{simm2020reinforcement,
@@ -495,4 +495,88 @@
   doi          = {10.5281/zenodo.21904330},
   url          = {https://github.com/Omer-Sella/bbCodesDataset},
   note         = {Dataset and figure-reproduction scripts}
+}
+
+@misc{sella2026bbcodesurrogates,
+  author    = {Sella, Omer S.},
+  title     = {{bbCodeSurrogates}: pretrained encoders for bivariate bicycle codes},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {models},
+  doi       = {10.5281/zenodo.21936196},
+  url       = {https://github.com/Omer-Sella/bbCodeSurrogates},
+  note      = {300 encoder checkpoints (6 recipes $\times$ 5 harmonics $\times$ 10 seeds) and the transfer-evaluation census}
+}
+
+@article{mackay2004sparse,
+  author  = {MacKay, David J. C. and Mitchison, Graeme and McFadden, Paul L.},
+  title   = {Sparse-Graph Codes for Quantum Error Correction},
+  journal = {IEEE Transactions on Information Theory},
+  volume  = {50},
+  number  = {10},
+  pages   = {2315--2330},
+  year    = {2004},
+  doi     = {10.1109/TIT.2004.834737}
+}
+
+@article{kovalev2013quantum,
+  author  = {Kovalev, Alexey A. and Pryadko, Leonid P.},
+  title   = {Quantum Kronecker sum-product low-density parity-check codes with finite rate},
+  journal = {Physical Review A},
+  volume  = {88},
+  number  = {1},
+  pages   = {012311},
+  year    = {2013},
+  doi     = {10.1103/PhysRevA.88.012311}
+}
+
+@misc{voss2024multivariate,
+  author       = {Voss, Lukas and Xian, Sim Jian and Haug, Tobias and Bharti, Kishor},
+  title        = {Multivariate Bicycle Codes},
+  year         = {2024},
+  eprint       = {2406.19151},
+  archivePrefix = {arXiv},
+  primaryClass = {quant-ph},
+  doi          = {10.48550/arXiv.2406.19151}
+}
+
+@article{voss2025multivariate,
+  author  = {Voss, Lukas and Xian, Sim Jian and Haug, Tobias and Bharti, Kishor},
+  title   = {Multivariate bicycle codes},
+  journal = {Physical Review A},
+  volume  = {111},
+  number  = {6},
+  pages   = {L060401},
+  year    = {2025},
+  doi     = {10.1103/ll5p-z88p}
+}
+
+@article{blue2026machine,
+  title={Machine learning decoding of circuit-level noise for bivariate bicycle codes},
+  author={Blue, John and Avlani, Harshil and He, Zhiyang and Ziyin, Liu and Chuang, Isaac L},
+  journal={Quantum},
+  volume={10},
+  pages={2149},
+  year={2026},
+  publisher={Verein zur F{\"o}rderung des Open Access Publizierens in den Quantenwissenschaften},
+  doi = {10.22331/q-2026-06-30-2149}
+}
+
+@article{su2305discovery,
+  title={Discovery of optimal quantum error correcting codes via reinforcement learning (2023)},
+  author={Su, Vincent Paul and Cao, C and Hu, Hong-Ye and Yanay, Yariv and Tahan, Charles and Swingle, Brian},
+  journal={arXiv preprint arXiv:2305.06378},
+  doi = {10.48550/arXiv.2305.06378}
+}
+
+@article{cao2022quantum,
+  title={Quantum lego: Building quantum error correction codes from tensor networks},
+  author={Cao, ChunJun and Lackey, Brad},
+  journal={PRX Quantum},
+  volume={3},
+  number={2},
+  pages={020332},
+  year={2022},
+  publisher={APS},
+  doi = {10.1103/PRXQuantum.3.020332}
 }

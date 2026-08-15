@@ -1,0 +1,28 @@
+\section{Introduction}\label{sec:intro}
+Fault-tolerant quantum computation requires that physical noise rates be suppressed low enough, and decoding is done fast enough. 
+Quantum error correcting codes (QECCs) achieve the former by restricting a larger space of physical 
+qubits to a subspace of logical qubits that satisfy some relations.
+These relations can be measured without collapsing the encoded quantum state. The design of such codes is just one side of a foundational problem in the path to scalable 
+quantum computing. The choice of decoder is another, and the two operate together.
+%For binary and Additive White Gaussian Noise (AWGN) channels, low-density parity check (LDPC) codes~\cite{gallager1962low} 
+%were adopted in communication and data storage,  
+%with a ranging array of decoding .
+\noindent Quantum Low Density Parity Check codes (qLDPC)~\cite{panteleev2022asymptotically,bravyi2024high} present an attractive approach as they promise good asymptotic parameters and can be decoded using algorithms such as belief propagation (BP)~\cite{pearl1988probabilistic}.
+Furthermore, the implication of \emph{low density} is that the connectivity required between logical qubits is low, an appealing property in some qubit architectures and quantum control hardware.
+Practical decoding for fault tolerant quantum computing is likely to constrain the 
+decoder design further than qubit connectivity.
+Much like the binary setting, the decoder must complete its work under a 
+certain time limit, otherwise its decoding latency may kill the entire application~\cite{sella2018fec}.
+
+\noindent A central insight motivating this work is that code design and decoder design are not independent problems, 
+especially in decoders that rely on heuristics and approximations of Maximum Likelihood (ML) decoding.
+The performance of a given decoder depends strongly on the structure of the code.  
+We can ask the question: \textit{given a fixed decoder, which code maximises its performance ?}\\
+
+\noindent A deeper question that motivated this work is: \textit{Assuming deep knowledge of a quantum-device-under-test (qDUT), its error modalities, failure modes etc., how could one use that knowledge to engineer better, stack-integrated, QECC-decoder pair ?}
+
+\noindent While we are still far from answering the latter, we believe this work presents some progress in answering the former. This paper proceeds as follows:\\
+Section~\ref{sec:background} is meant to serve as a presentation of the tools we use in this work for a non expert in the corresponding field. We also include a \textbf{dataset} of BB codes we used for supervised learning in a later section.\\
+Section~\ref{sec:mdp} describes a \textbf{Markov Decision Process} (MDP) formulation of Bicycle-Bivariate (BB) code design in which the state is a parity check matrix and an action modifies the matrix. Following the action we present a \textbf{reward} function based on the area under a fitted BER physical-error-rate curve, giving a single scalar.\\
+\noindent A ``warm start'' strategy, in the form of a predictive model, is presented in Section~\ref{sec:critic}. It is then used in as part of the \textbf{policy architecture} in order to improve sampling efficiency.\\
+\noindent Following the related work in Section~\ref{sec:related-work}, we evaluate the training and resulting policy in Section~\ref{sec:evaluation}, and discuss potential further work in Section~\ref{sec:conclusion}.

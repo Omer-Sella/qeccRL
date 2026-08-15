@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-\documentclass[a4paper,11pt, unpublished]{quantumarticle}
-=======
-\documentclass[a4paper,11pt]{quantumarticle}
->>>>>>> 61deb08 (.)
+\documentclass[a4paper,onecolumn,11pt, unpublished]{quantumarticle}
 \pdfoutput=1
 \usepackage{braket}
 \usepackage[utf8]{inputenc}
@@ -12,7 +8,6 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
-\usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{siunitx}
@@ -26,7 +21,6 @@
 \bibliographystyle{unsrtnat}
 \usepackage{fontawesome5}
 \usepackage{xurl}
-\usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{subcaption}
 \usepackage{tikz}
@@ -34,6 +28,7 @@
 \newtheorem{theorem}{Theorem}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{makecell}
 
 % Define custom colours
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -64,17 +59,35 @@ language=Python
 \newtheorem{remark}{Remark}
 \newcommand{\polynomials}{\ensuremath{a(x), b(x), a(y), b(y)}} % Will place : in the text \(a(x), b(x), a(y), b(y)\)
 \newcommand{\hmatrices}{\ensuremath{H^X, H^Z}} %A = a(x), b(x), a(y), b(y) % Will place : in the text \(a(x), b(x), a(y), b(y)\)
+\newcommand{\mixedSixSix}{Base(66)}
+\newcommand{\mixedSixSixSixNine}{Mixed 66-96}
+\newcommand{\mixedSixSixSixNineOneTwoSix}{Mixed 66-96-126}
+\newcommand{\mixedSixSixSixNineOneTwoSixOneFiveThree}{Mixed 66-96-126-153}
+\newcommand{\groundAnchored}{Ground + Anchored(66)}%\_66-96-126-153}
+\newcommand{\groundPure}{Ground}%groundPure\_66-96-126-153}
+\newcommand{\bfit}[1]{{\fontseries{bx}\fontshape{it}\selectfont #1}}
+\usepackage{pifont}
 
-
+% shared architecture-figure styles using colorblind-safe palette, this is from Nature
+\definecolor{wongBlue}{RGB}{0,114,178}
+\definecolor{wongGreen}{RGB}{0,158,115}
+\definecolor{wongOrange}{RGB}{230,159,0}
 \tikzset{
-  box/.style={draw=black!55,rounded corners=3pt,align=center,inner sep=4pt,
-              fill=black!4,minimum height=8mm,font=\footnotesize},
-  enc/.style={box,fill=blue!8,draw=blue!55},
-  frozen/.style={enc,dashed},
-  arr/.style={-{Stealth[length=2mm]},semithick,black!55},
-  dim/.style={font=\scriptsize\ttfamily,text=orange!60!black},
+  archfont/.style={font=\sffamily\small},
+  input/.style={draw=gray!60, rounded corners=2.5pt, fill=gray!6, align=center,
+                inner sep=5pt, minimum height=10mm, text width=30mm},
+  module/.style={draw=wongGreen, rounded corners=2.5pt, fill=wongGreen!10, align=center,
+                 inner sep=5pt, minimum height=10mm, text width=28mm},
+  pre/.style={draw=wongBlue, rounded corners=2.5pt, fill=wongBlue!8, align=center,
+              inner sep=5pt, minimum height=10mm, text width=26mm},
+  head/.style={draw=wongOrange!90!black, rounded corners=2.5pt, fill=wongOrange!14, align=center,
+               inner sep=5pt, minimum height=10mm, text width=29mm},
+  dims/.style={font=\sffamily\footnotesize, text=black!70, inner sep=1.5pt},
+  tag/.style={font=\sffamily\footnotesize\scshape, text=black},
+  arr/.style={->, semithick, draw=black!60},
+  callout/.style={font=\sffamily\footnotesize, text=black!70, inner sep=1.5pt},
+  lead/.style={draw=black!45, thin}
 }
-
 
 
 \begin{document}
@@ -83,23 +96,23 @@ language=Python
 
 \author{Omer S. Sella}
 \affiliation{Imperial College London}
-\thanks{wishes to thank Dr. Pavel Panteleev for helpful clarification, guidance in methodology in the early stages of this work, as well as Dr. Marco Ghibaudi.}
+\homepage{https://omer-sella.github.io/}
 \email{o.sella@imperial.ac.uk}
+\thanks{wishes to thank Dr. Panteleev Pavel for helpful clarification, guidance in methodology in the early stages of this work.}
 \orcid{0000-0002-2795-8580}
 \author{Robert Pinsler}
 \affiliation{Microsoft Research}
-%\homepage{}
 \orcid{0000-0003-1454-188X}
 \author{Thomas Heinis}
 \affiliation{Imperial College London}
 \orcid{0000-0002-7470-2123}
-%\thanks{You can use the \texttt{\textbackslash{}email}, \texttt{\textbackslash{}homepage}, and \texttt{\textbackslash{}thanks} commands to add additional information for the preceding \texttt{\textbackslash{}author}. If applicable, this can also be used to indicate that a work has previously been published in conference proceedings.}
+
 
 \maketitle
 \begin{abstract}
 We present a reinforcement learning (RL) approach to the co-design of stabilizer sets of quantum error correcting codes (QECCs) and decoders. 
 We show that by inverting the usual workflow of constructing codes and then evaluating their performance 
-over decoders independently, we can produce a generative model that produces Bicycle Bivariat (BB) codes based on the choice of decoder.
+over decoders independently, we can produce a generative model that produces Bivariate Bicycle (BB) codes based on the choice of decoder.
 Specifically, we fix a decoder architecture and use Proximal Policy Optimisation (PPO) to train an agent over BB codes that maximise decoder performance under a depolarising noise model. 
 %A reward signal is engineered to represent the logical-qubit-error-rate versus physical-error-rate curve, 
 %providing a single scalar that captures code quality over a range of operating conditions. 
@@ -112,27 +125,30 @@ Specifically, we fix a decoder architecture and use Proximal Policy Optimisation
 
 
 
-%\input{sections/introduction.tex}
+\input{introduction.tex}
 
-%\input{sections/background.tex}
+\input{background.tex}
 
-%\input{sections/problem_formulation.tex}
+\input{problem_formulation.tex}
 
-%\input{sections/policyArchitecture.tex}
-
-
-
-%\input{sections/relatedWork.tex}
-
-%\input{sections/evaluation.tex}
-
-%\input{sections/conclusion.tex}
-
-%\input{sections/terminology.tex} %Omer: easy place to cut back if the number of pages needs to be reduced.
+\input{policyArchitecture.tex}
 
 
-%\appendix
-%\input{sections/dataSet.tex}
+
+\input{relatedWork.tex}
+
+\input{evaluation.tex}
+
+\input{conclusion.tex}
+
+\begin{acknowledgements}
+We thank Dr.\ Pavel Panteleev for helpful clarification and for guidance on methodology
+in the early stages of this work.
+\end{acknowledgements}
+
+\appendix
+\input{dataSet.tex}
+%\bibliographystyle{unsrt}
 \bibliography{bibliography}
 
 \end{document}

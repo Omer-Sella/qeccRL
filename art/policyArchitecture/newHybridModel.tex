@@ -1,0 +1,75 @@
+\begin{tikzpicture}[archfont, >={Stealth[length=2.2mm]}]
+
+
+\node[input] (flat) at (0, 0)     {flattened\\ $A\,\Vert\,B \in \{-1,+1\}^{2(lm)^2}$};
+\node[input] (poly) at (0, -3.1)  {polynomial coefficients\\ $[\,a(x)\; a(y)\; b(x)\; b(y)\,]$};
+\node[input, text width=43mm, minimum height=13mm] (kfeat) at (0, -5.6)
+     {logical-qubit features\\
+      {\footnotesize $[\,\min(k{-}k_{\min},0)/k_{\min},$\\
+       $\mathbf{1}_{k\ge k_{\min}},\ \log(1{+}k)\,]$}};
+
+
+\node[module] (mlp) at (5.1, 0) {MLP\\ \(2(lm)^2 \to 256\), Tanh\quad \(\times\,3\)};
+
+
+\node[pre] (tok)  at (5.0, -3.1)  {tokenizer + cyclic\\ positional encoding\\ ($H$ harmonics)};
+\node[pre] (trf)  at (8.8, -3.1)  {Transformer encoder\\ $d{=}64$, 4 heads\quad $\times\,2$};
+\node[pre, text width=17mm] (pool) at (12.1, -3.1) {attention\\ pooling};
+
+\begin{scope}[on background layer]
+\node[draw=wongBlue!60, dashed, rounded corners=4pt, fill=wongBlue!4,
+      fit=(tok)(trf)(pool), inner sep=4mm] (encbox) {};
+\end{scope}
+\node[tag, align=left, anchor=south west] at ($(encbox.north west)+(-20mm,1.0mm)$)
+   {Encoder (Figure~\ref{fig:encoderArchitecture}) \\
+   optionally pretrained and frozen for warm-start};
+
+
+\node[module, text width=21mm, minimum height=14mm] (fuse) at (15.6, -3.1)
+     {fusion\\ \(323 \to 256\)\\ Tanh};
+
+
+\node[head] (actor)  at (19.3, -3.1) {policy head\\ 4 categorical blocks\\ (6 coefficients + no-op each)};
+\node[head] (critic) at (19.3, -5.5) {value head\\ $256 \to 1$};
+\node[dims, right=3.5mm of actor, align=left] (act) {action\\ $4 \times \mathrm{Cat}(7)$};
+\node[dims, right=3.5mm of critic] (val) {$\hat V(s)$};
+
+\draw[arr] (flat) -- (mlp);
+\draw[arr] (mlp.east) -- node[dims, above, pos=0.25]{$256$} ++(6mm,0) -| (fuse.north);
+\draw[arr] (poly) -- (tok);
+\draw[arr] (tok) -- coordinate[midway] (m1) (trf);
+\draw[arr] (trf) -- coordinate[midway] (m2) (pool);
+\draw[arr] (pool.east) -- node[dims, above]{$64$} (fuse.west);
+\draw[arr] (kfeat.east) -- node[dims, above, pos=0.1]{$3$} (kfeat.east -| fuse.south)
+           -- (fuse.south);
+
+
+\draw[arr] (fuse.east) -- node[dims, above]{$256$} (actor.west);
+\draw[arr] (actor) -- (act);
+
+
+\coordinate (cstart) at ($(fuse.south east)+(1mm,-1mm)$);
+\draw[arr, dashed, draw=black!45] (cstart) |- (critic.west);
+% placed in the clear gap between the two heads: the old position at (16.7,-4.5)
+% was straddled by the k-feature arrow and by the dashed critic branch
+\node[callout, align=left, anchor=west] (inst) at (18.1, -4.45)
+     {second, independent\\ instance of the trunk};
+\draw[lead] (inst.west) -- ($(cstart)!0.55!(cstart |- critic.west)$);
+\draw[arr] (critic) -- (val);
+
+
+\node[callout] (c1) at (7.6, -5.15)  {$(2l{+}2m)\times(9{+}2H)$}; %this is the callout for the first encoder bus (datapath)
+\draw[lead] (c1.north) -- (m1);
+
+\node[callout] (c2) at (11.4, -5.15) {$(2l{+}2m)\times 64$}; %this is the callout for the second encoder bus (datapath)
+\draw[lead] (c2.north) -- (m2);
+
+
+\node[anchor=north west, align=left, font=\sffamily\footnotesize, text=black]
+  at (3.4, -6.6)
+  {\tikz{\node[pre, text width=4mm, minimum height=3mm, inner sep=1pt]{};}\; pretrained (surrogate transfer)\qquad
+   \tikz{\node[module, text width=4mm, minimum height=3mm, inner sep=1pt]{};}\; trained from scratch\qquad
+   \tikz{\node[head, text width=4mm, minimum height=3mm, inner sep=1pt]{};}\; task heads (actor / critic)\qquad
+   \tikz{\draw[dashed, black!45, semithick] (0,0) -- (5mm,0);}\; separate network instance};
+
+\end{tikzpicture}

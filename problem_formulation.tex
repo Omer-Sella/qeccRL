@@ -1,0 +1,116 @@
+\section{Framing as a sequential decision making problem}\label{sec:mdp}
+For a code, defined by a pair of parity matrices \(H_X, H_Z\) and a choice of decoder, we define performance based on the evaluation~\ref{alg:monte-carlo} and the resulting plot~\ref{fig:reward-explained}.
+The first problem with the way the evaluation data is gathered is that it is only a noisy approximation of the true performance of the code. 
+This can be accommodated in learning paradigms like PPO.
+The second, has to do with the way it is presented in Figure~\ref{fig:reward-explained}, namely, 
+that it contains multiple scalar values. 
+A ``better'' code will have a steeper fall, and its curve stays lower. We collapse it into a single scalar in the following section.
+\begin{algorithm*}
+\DontPrintSemicolon
+\caption{A Monte Carlo evaluation of code-decoder pair}
+\label{alg:monte-carlo}
+\KwIn{\(H_X,\quad H_Z,\quad errorRange,\quad numberOfSamples\)}
+\KwOut{\(logicalErrorRate\)}
+Prepare \(X\) and \(Z\) logical operators \(L_X,\quad L_Z\) from \(Hx, Hz\)\;
+\For{ \(p\) in errorRange }{
+     \For {i in  1..numberOfSamples } 
+     { 
+         Sample \(E\) with probability \(p\) for \(E(i)\in\{X,Z,Y\}\) \;
+         Calculate \(s_X = P_Z(E)\cdot H_X,\quad s_Z = P_X(E)\cdot H_Z\)\;
+         \(\hat{E_X},\hat{E_Z}\) = decode\((H_X,H_Z,s_X,s_Z)\) \;      
+         \(R_X \gets (\hat{E}_X + E_X) \bmod 2\), \quad \(R_Z \gets (\hat{E}_Z + E_Z) \bmod 2\)\tcp*{residual error} \;
+         \If{\(H_X \cdot R_Z \neq 0\) or \(H_Z \cdot R_X \neq 0\)}
+         {logicalErrorRate \(+= 1\)}\tcp{The residual error does not commute with the stabilizers, i.e., nonzero syndrome}
+         \Else{
+         \If{\(L_X \cdot R_Z \neq 0\) or \(L_Z \cdot R_X \neq 0\)}
+         {logicalErrorRate \(+= 1\)} \tcp{The residual error does not commute with the logical operators, i.e., it is not a stabilizer}}
+         }}
+\end{algorithm*}
+
+\subsection{Reward}
+%We can encompass this (albeit not perfectly) using integration.
+To obtain a single scalar that is function of this scattered dataset, integrate to obtain the area bounded between the evaluation curve and the constant function \(1\)\footnote{We note that this is a design choice, and one could choose differently (for example, by sampling a single error point).}.
+\begin{equation}
+\label{eq:reward}
+    r(H_X,H_Z)=\int_{p_{\min}}^{p_{\max}}\big(1-\widehat{f}(p;H)\big)dp
+\end{equation}
+where \(\widehat f\) is the empirical combined failure rate, computed by the trapezoid rule over the error range and 
+where \([p_{\min}, p_{\max}]\) is the evaluation range.
+% Larger (less negative) reward corresponds to better code performance.
+This reward has several desirable properties, and some that are not desirable.
+While a higher number would mean ``less errors observed in the range'', the integration provides a very small number, which we compensate for by dividing it by the width of the error range.
+Another problem with the above reward, as it stands, is that it rewards the agent solely on logical error rate. 
+A code with no logical qubits will be highly performant by this definition, 
+and this could drive the agent towards codes with fewer logical qubits, denoted as \(k\).
+One way to discourage any agent negatively on coming up with a code that has no, or not enough, logical qubits, is to engineer the reward function to 
+be proportional to the distance of \(k\) from some minimum requirement on the number of logical qubits we expect a code should have, denoted \(k_{min}\), i.e.:
+\[(k-k_{min})/k_{min}\]
+For \[k \leq k_{min}\]
+and switch to the decoder generated evaluation when \(k \geq k_{min}\). We summarise this as Definition~\ref{def:reward}:
+\begin{definition}[Reward\label{def:reward}]
+  \begin{equation}
+r(H_X,H_Z) =
+       \begin{cases}
+                    \frac{1}{p_{\max} - p_{\min}}\int_{p_{\min}}^{p_{\max}}\big(1-\widehat{f}(p;H)\big)dp & \text{if } k \geq k_{min},\\[1ex]
+                     \frac{k-k_{min}}{k_{min}}& \text{if } k < k_{min}.
+        \end{cases}
+\end{equation}
+\end{definition}
+\noindent Before moving ahead, we note that in many constructions the number of logical qubits can be calculated, and even designed by the choice of the polynomials. 
+We chose to treat it as a quantity that is to be learned by the agent, since other constructions may not allow this quantity to be designed.
+
+\subsection{Framing as a Markov Decision Process}
+At first glance, we could state the problem as ``stateless'', i.e.,  
+for given \(l,m\), produce polynomials \polynomials{}, and construct code matrices from them as in~\ref{def:bbcode}.
+This has no consideration for the ``present state code'', whereas in the long run, 
+we would like a generative model that would augment an existing code as little as possible, to yield a better performing code, maybe even just one term of one polynomial at a time.
+%We formulate the problem as a Markov Decision Process \((\mathcal{S}, \mathcal{A}, r, \mathcal{T})\).
+To this end, 
+\paragraph{State} The state \(s \in \mathcal{S}\) are the current parity check matrices  
+\(H^X = [A \mid B], \qquad H^Z = [B^\top \mid A^\top]\), where \(A,B\) are generated from the polynomials \polynomials{}.
+
+\paragraph{Transition} The transition is deterministic:
+\begin{equation}
+    \begin{split}
+    H' =& \mathcal{T}(H(\polynomials{}),\\
+        &A^{a(x)},A^{b(x)},A^{a(y)},A^{b(y)})
+    \end{split}
+\end{equation}
+ applies the action and returns the modified matrix.
+
+\paragraph{Action} An action \(A^p\) on the polynomial \(p(x) = c_0 + c_1 \cdot x + \ldots\), where \(c_i \in \{0,1\}\), selects at most one index \(i\) and XORs the coefficient of \(c_i\) with \(1\), i.e., \(c_i \oplus 1\).
+We subsequently define an action on the polynomials \polynomials{} to be a tuple of individual actions \(A^{a(x)},A^{b(x)},A^{a(y)},A^{b(y)}\). We will abuse notation and write 
+\begin{equation}
+    p(t)\oplus A^{p(t)}
+\end{equation}
+instead of explicitly saying which coefficient of \(p(t)\) is being flipped.
+
+\paragraph{Reward} After each action, the new matrices \({H^{X}}', {H^{Z}}'\) are constructed, their rank is calculated, and 
+the reward \(r({H^{X}}', {H^{Z}}')\) from Definition~\ref{def:reward} is returned.
+
+\paragraph{Episode structure} Each episode begins from a random set of \polynomials{}, with up to \(3\) non zero coefficients, and proceeds for a fixed number of transitions. There are subtle failure modes which sit on the boundary of the hyperparameters (specifically the entropy coefficient), error range, code parameters and reward. First, we note that an actor which applies only one action (which could happen for example, if policy entropy collapses) is either stuck on a single code, or toggles between two codes. The single code case is exactly when the single action is ``do nothing'', communicated through a per-polynomial ``no-op'' bit to the environment. Otherwise there is at least one \(p(t)\in \{\polynomials\}\) with non trivial \(A^{p(t)}\). Say, for example, \(p(t) = b(x)\). Following action \(A^{b(x)}\) the new polynomial is \(b(x)\oplus A^{b(x)}\). Following another identical action \(b(x)\oplus A^{b(x)}\oplus A^{b(x)}\) is again \(b(x)\). 
+This becomes catastrophic for a certain combination of BB code parameters and agent-environment hyperparameters. In error ranges that are too high, almost no code succeeds. In physical error rates that are too low, a fixed number of samples in Algorithm~\ref{alg:monte-carlo} provides a limited view, since the error sampled may be trivial, and this changes as a function of the code length. This may lead to mediocre codes that score a positive, yet lower-than-possible reward\footnote{Think of a code where the number of logical qubits is the same as the number of physical qubits, under low enough error rate.}. The agent could then get stuck on such mediocre codes, at the expense of exploration. To counter that effect, we cap each episode at \(\mathcal{O}(l+m)\) steps, at the end of which the environment communicates a ``truncated'' signal\footnote{which is different than a ``terminated'' signal~\cite{towers2024gymnasium}.} This means that, over the span of collection, the agent will have experienced a sufficiently diverse view~\cite{sutton2018reinforcement}.
+
+\begin{algorithm*}
+\DontPrintSemicolon
+\caption{RL-based QECC co-design }%\href{https://github.com/Omer-Sella/qecc-rl/blob/main/src/qecc/reinforcementLearning.py}{\faGithub}}
+\label{alg:main}
+initialise policy \(\pi_\theta\) and value network \(V_\phi\)\;
+\For{\(\mathrm{batch} = 1, 2, \ldots\)}{
+  \For{each of the \(F\) transitions in the batch}{
+    \tcp{episodes reset each polynomial to a random vector with at most
+         three non-zero coefficients, and truncate after \(T\) steps}
+    sample \(A^{aX}\!, A^{bX}\!, A^{aY}\!, A^{bY} \sim \pi_\theta(\cdot \mid s)\), each one-hot (includes no-op)\;
+    \(p \gets p \oplus A^{p}\) for each polynomial %\(p\)\tcp*{\href{https://github.com/Omer-Sella/qecc-rl/blob/739f5cd/src/qecc/bb_gym_v_0_1.py\#L195}{\texttt{step()}}}
+    build \(H'\); \(k \gets\) number of logical qubits\;
+    \eIf{\(k \ge k_{\min}\)}{
+      \(r \gets\) Monte-Carlo decoder evaluation of \(H'\)\;
+    }{
+      \(r \gets (k - k_{\min})/k_{\min}\)\tcp*{no decoding performed}
+    }
+  }
+  update \(\pi_\theta, V_\phi\) with PPO on the batch\tcp*{truncated episodes bootstrapped}
+  record the best \(H\) found so far\;
+}
+\KwRet{policy and value weights, evaluation log}
+\end{algorithm*}
