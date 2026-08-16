@@ -31,12 +31,12 @@ and the exact number of logical qubits can be recovered from the negative reward
 and the 10th to 90th percentile of the rewards obtained in that evaluation in shaded orange\footnote{Which will always be around the average and below the maximum.}, which indicates where 80\% of that evaluation was spent.
 
 \paragraph{Anatomy of a single run}
-\begin{figure}[htbp]
+\begin{figure*}[htbp]
     \centering
     \includegraphics[width=\linewidth]{art/evaluation/paper_2026-08-03_19-34-15_1777554.pdf}
     \caption{Evaluation of a single PPO training session. Horizontal dashed line marks the reward for a published reference code (which is expected to be the maximum possible reward). Vertical dashed line marks when the encoder weights were unfrozen \faSnowflake{} $\rightarrow$ \faFire{}. As learning progresses, the 80\% band (transparent orange) is contracts towards the best codes in the evaluation and lifts off from the penalty region (shaded lower part).}
     \label{fig:reward-panel}
-\end{figure}
+\end{figure*}
 Early in training the 80\% band is high-spread and sits largely inside the penalty region (shaded gray) and the agent spends most of its steps climbing from the random reset 
 code towards codes with more logical qubits. 
 As training progresses, a successful run shows the band shifting away from the penalty region. 
@@ -51,24 +51,25 @@ These observations can be seen in Figure~\ref{fig:reward-panel}.
 
 
 \paragraph{Analysis of multiple runs}
-Figure~\ref{fig:where-spent-96} show a stacked plot of where the agent spends evaluation time divided by the regions~\ref{list:regions}, for \(28\) runs for the \(9,6\) parameters (multiple seeds, multiple encoders). 
+Figure~\ref{fig:multiple96} (left) show a stacked plot of where the agent spends evaluation time divided by the 
+regions~\ref{list:regions}, for \(28\) runs for the \(9,6\) parameters (multiple seeds, multiple encoders). 
 As training progresses, the agent spends less time on codes that have less the minimum required number of logical qubits.
-\begin{figure}
+\begin{figure*}
         \centering
-                \includegraphics[width=\linewidth]{art/evaluation/multiple_runs_l_9_m_6_month_August_eval_rollout_length_30_where_spent.pdf}
-                \caption{Stacked plot corresponding to the regions defined in \ref{list:regions}. The reference code is considered the best possible. As training progresses, the agent spends more of the evaluation time in better performing regions.}
-    \label{fig:where-spent-96}
-        
-\end{figure}
-\noindent Figure~\ref{fig:where-within-episode-gain-96} shows the median episode gain for the same \(28\) runs of the \(9,6\) code, with a 50\% band. As learning progresses, the 
+        \begin{subfigure}{0.48\linewidth}
+        \includegraphics[width=\linewidth]{art/evaluation/multiple_runs_l_9_m_6_month_August_eval_rollout_length_30_where_spent.pdf}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{art/evaluation/multiple_runs_l_9_m_6_month_August_eval_rollout_length_30_episode_gain.pdf}
 
-\begin{figure}
-        \centering
-                \includegraphics[width=\linewidth]{art/evaluation/multiple_runs_l_9_m_6_month_August_eval_rollout_length_30_episode_gain.pdf}
-                \caption{Median within-episode gain, calculated as the difference between the reward for the first and last code of the episode.}
-    \label{fig:where-within-episode-gain-96}
-        
-\end{figure}
+        \end{subfigure}
+                \caption{Left: stacked plot corresponding to the regions defined in \ref{list:regions}. The reference code is considered the best possible. As training progresses, the agent spends more of the evaluation time in better performing regions. 
+                Right: rolling median (pooled over one adjacent evaluation on either side) within-episode gain, calculated as the difference between the reward for the first and last code of the episode.}
+        \label{fig:multiple96}
+\end{figure*}
+\noindent Figure~\ref{fig:multiple96} (right) shows the median episode gain for the same \(28\) runs of the \(9,6\) 
+code, with a 50\% band. As learning progresses, the median gain within episode increases up to evaluation \(50\), where it begins to stabilise. The reward for the reference code can be found in Table~\ref{tab:configuration}, \(0.546\) for the \(9,6\) code.
 % \subsection{Evaluation of the network architecture\label{sec:validation}}
 % Recall that our network architecture in Section~\ref{sec:policy} proposed three branches, with the main ones being the MLP (which number of parameters depend on the size of the code) 
 % and the encoder (which is transferable across code sizes). Furthermore, in Section~\ref{sec:critic} we proposed using a pretrained encoder, which, depending on what the agent struggles on, could warm-start the learning.
