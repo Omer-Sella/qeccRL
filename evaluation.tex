@@ -70,15 +70,27 @@ As training progresses, the agent spends less time on codes that have less the m
 \end{figure*}
 \noindent Figure~\ref{fig:multiple96} (right) shows the median episode gain for the same \(28\) runs of the \(9,6\) 
 code, with a 50\% band. As learning progresses, the median gain within episode increases up to evaluation \(50\), where it begins to stabilise. The reward for the reference code can be found in Table~\ref{tab:configuration}, \(0.546\) for the \(9,6\) code.
-% \subsection{Evaluation of the network architecture\label{sec:validation}}
-% Recall that our network architecture in Section~\ref{sec:policy} proposed three branches, with the main ones being the MLP (which number of parameters depend on the size of the code) 
-% and the encoder (which is transferable across code sizes). Furthermore, in Section~\ref{sec:critic} we proposed using a pretrained encoder, which, depending on what the agent struggles on, could warm-start the learning.
-% As Table~\ref{tab:kCurveAlignment} suggests, it is hard to pick an encoder that excels both tasks.
-% The selection will therefore had to be done once we learn whether the agent struggles (at early training) with getting to codes with sufficient number of logical qubits, 
-% or whether it struggles to find good codes which meet the threshold. We can, however, review some training strategies, assuming we find an encoder that compensates for early start stagnation (yet to be demonstrated).
-% Looking at Figure~\ref{fig:reward-panel}, and other individual runs similar to it, suggests that it is learning to produce codes with a sufficient number of qubits that the agent struggles with at first.
-% %We test this, as well as the benefit of each branch of the network using the following sweep:
-% Under identical PPO hyperparameters and seeds, we compare the learning curves across the following configurations:
+\subsection{Evaluation of the network architecture\label{sec:validation}}
+Recall that our network architecture in Section~\ref{sec:policy} proposed three branches, with the main ones being the MLP (which number of parameters depend on the size of the code) 
+and the encoder (which is transferable across code sizes). Furthermore, in Section~\ref{sec:critic} we proposed using a pretrained encoder, which, depending on what the agent struggles on, could warm-start the learning.
+As Table~\ref{tab:kCurveAlignment} suggests, it is hard to pick an encoder that excels both tasks.
+The selection therefore had to be done once we learned whether the agent struggles (at early training) with getting to codes with sufficient number of logical qubits, 
+or whether it struggles to find good codes which meet the threshold. 
+We can, however, review some training strategies, assuming we find an encoder that compensates for early start stagnation (yet to be demonstrated).
+Looking at Figure~\ref{fig:reward-panel}, as well as the breakdown of Figure~\ref{fig:multiple96} (left), 
+suggests that it is learning to produce codes with a sufficient number of qubits that the agent struggles with at first.
+We therefore chose encoders that excelled at predicting the number of logical qubits of a code.
+To test whether a pretrained encoder can improve sampling efficiency, we used identical PPO hyperparameters and seeds, 
+and plot in Figure~\ref{fig:unfreezeSweep} the fraction of time spent at invalid codes, as a function of the unfreeze index (the episode from which the encoder weights are unfrozen).
+\begin{figure}
+        \centering
+        \includegraphics[width = 0.8\textwidth]{art/encoder/unfreezeExperiment.pdf}
+        \caption{Fraction of the evaluation spent at codes that had less than the minimum required logical qubits.}
+        \label{fig:unfreezeSweep}
+\end{figure}
+The results in Figure~\ref{fig:unfreezeSweep} show that any delay in unfreezing the encoder weights, produces higher stagnation of the agent, meaning, more time  spent in codes that score a negative reward. 
+In simple terms, sampling efficiency degrades as unfreeze is delayed.
+%Adding this to the tension in Table~\ref{tab:kCurveAlignment}
 % \paragraph{Warm-started} the architecture of Figure~\ref{fig:hybrid}, encoder
 %         warm-started from a well performing checkpoint. Training starts with two instances of the selected encoder, one for the actor and one for the
 % critic, with the encoder weights frozen, meaning that they do not change. 
