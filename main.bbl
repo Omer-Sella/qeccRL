@@ -1,4 +1,4 @@
-\begin{thebibliography}{44}
+\begin{thebibliography}{43}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -275,16 +275,6 @@ ChunJun Cao and Brad Lackey.
 Omer Sella.
 \newblock \emph{Coding for emerging archival storage media}.
 \newblock PhD thesis, University of Cambridge, 2024.
-
-\bibitem[Nikishin et~al.(2022)Nikishin, Schwarzer, D'Oro, Bacon, and
-  Courville]{nikishin2022primacy}
-Evgenii Nikishin, Max Schwarzer, Pierluca D'Oro, Pierre-Luc Bacon, and Aaron
-  Courville.
-\newblock The primacy bias in deep reinforcement learning.
-\newblock In \emph{International Conference on Machine Learning (ICML)}, pages
-  16828--16847. PMLR, 2022.
-\newblock \doi{10.48550/arXiv.2205.07802}.
-\newblock URL \url{https://doi.org/10.48550/arXiv.2205.07802}.
 
 \bibitem[Pardo et~al.(2018)Pardo, Tavakoli, Levdik, and
   Kormushev]{pardo2018time}
