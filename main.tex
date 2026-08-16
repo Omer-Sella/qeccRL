@@ -98,7 +98,7 @@ language=Python
 \affiliation{Imperial College London}
 \homepage{https://omer-sella.github.io/}
 \email{o.sella@imperial.ac.uk}
-\thanks{wishes to thank Dr. Panteleev Pavel for helpful clarification, guidance in methodology in the early stages of this work.}
+\thanks{wishes to thank Dr. Panteleev Pavel for helpful clarifications, guidance and methodology in the early stages of this work.}
 \orcid{0000-0002-2795-8580}
 \author{Robert Pinsler}
 \affiliation{Microsoft Research}
@@ -110,15 +110,9 @@ language=Python
 
 \maketitle
 \begin{abstract}
-We present a reinforcement learning (RL) approach to the co-design of stabilizer sets of quantum error correcting codes (QECCs) and decoders. 
-We show that by inverting the usual workflow of constructing codes and then evaluating their performance 
-over decoders independently, we can produce a generative model that produces Bivariate Bicycle (BB) codes based on the choice of decoder.
-Specifically, we fix a decoder architecture and use Proximal Policy Optimisation (PPO) to train an agent over BB codes that maximise decoder performance under a depolarising noise model. 
-%A reward signal is engineered to represent the logical-qubit-error-rate versus physical-error-rate curve, 
-%providing a single scalar that captures code quality over a range of operating conditions. 
-%We focus on Bivariate Bicycle (BB) LDPC codes since they admit a compact parameterisation.
-%We show how a policy can be architected to mirror the construction of BB codes.
-%Finally, we change the decoder architecture and investigate how a change in decoder choice impacts the knowledge learned, and stored in the policy. 
+We present a reinforcement learning (RL) approach to the co-design of stabilizer sets of Quantum Error Correcting Codes (QECCs) and decoders. 
+We show how to produce a generative model that produces Bivariate Bicycle (BB) codes based on the choice of decoder.
+Specifically, we fix a decoder architecture and use Proximal Policy Optimisation (PPO) to train an agent over BB codes to maximise decoder performance under a depolarising channel noise model. 
 \end{abstract}
 
 
